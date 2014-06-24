@@ -4,10 +4,14 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
+
+
+var fs = require('fs');
 var exports = module.exports = {};
 var storage = [];
 var storageByRoom = {};
 var lastId = 0;
+var chatHtml = fs.readFileSync('./client/index.html', 'utf8');
 
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -49,7 +53,9 @@ exports.handleRequest = function(request, response) {
 
   var statusCode = 200;
 
-  if(request.url.match(/\/classes\/messages\??.*/)){
+  if (request.url === '/') {
+    responseText = chatHtml;
+  } else if(request.url.match(/\/classes\/messages\??.*/)){
     if(request.method === 'POST'){
       statusCode = 201;
       request.on('data', handlePostedMessage);
