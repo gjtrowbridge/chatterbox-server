@@ -11,7 +11,7 @@ var exports = module.exports = {};
 var storage = [];
 var storageByRoom = {};
 var lastId = 0;
-var chatHtml = fs.readFileSync('./client/index.html', 'utf8');
+var chatHtml = fs.readFileSync('./client/index.html');
 
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -88,13 +88,14 @@ exports.handleRequest = function(request, response) {
   /* .writeHead() tells our server what HTTP status code to send back */
   console.log('status code: ' + statusCode);
   response.writeHead(statusCode, headers);
+  response.write(responseText, "binary");
 
   /* Make sure to always call response.end() - Node will not send
    * anything back to the client until you do. The string you pass to
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
 
-  response.end(responseText);
+  response.end();
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).

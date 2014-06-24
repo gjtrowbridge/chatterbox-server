@@ -1,41 +1,49 @@
-/* Import node's http module: */
-var http = require('http');
+// /* Import node's http module: */
+// var http = require('http');
+// var fs = require('fs');
 var requestHandler = require('./server/request-handler.js');
-var fs = require('fs');
-/* Every server needs to listen on a port with a unique number. The
- * standard port for HTTP servers is port 80, but that port is
- * normally already claimed by another server and/or not accessible
- * so we'll use a higher port number that is not likely to be taken: */
+
+
+// var server = http.createServer(requestHandler.handleRequest);
+// server.listen(port);
+
 var port = process.env.port || 1337;
 
+var http = require('http'),
+    url = require('url'),
+    path = require('path'),
+    fs = require('fs');
+var mimeTypes = {
+    "html": "text/html",
+    "jpeg": "image/jpeg",
+    "jpg": "image/jpeg",
+    "png": "image/png",
+    "js": "text/javascript",
+    "css": "text/css"};
 
-// http.createServer(function(req, res) {
-//   res.writeHead(200,{'Content-Type':'text/plain'});
-//   res.end('Hello World\n');
-// }).listen(port);
+http.createServer(function(req, res) {
+    var uri = url.parse(req.url).pathname;
+    var filename = path.join(process.cwd(), uri);
 
-/* For now, since you're running this server on your local machine,
- * we'll have it listen on the IP address 127.0.0.1, which is a
- * special address that always refers to localhost. */
+    path.exists(filename, function(exists) {
+      console.log(exists);
+      if(!exists) {
+        console.log('i:' + filename);
+        requestHandler.handleRequest(req, res);
+        return;
+      } else if (uri === '/') {
+        filename += 'client/index.html'
+      } else if (uri.substr(0,7) === 'client/' {
+        filename = process.cwd();
+        filename = filename.substr(7);
+      }
+      console.log('o:' + filename);
 
+      var mimeType = mimeTypes[path.extname(filename).split(".")[1]];
+      res.writeHead(200, mimeType);
 
-/* We use node's http module to create a server. Note, we called it 'server', but
-we could have called it anything (myServer, blahblah, etc.). The function we pass it (handleRequest)
-will, unsurprisingly, handle all incoming requests. (ps: 'handleRequest' is in the 'request-handler' file).
-Lastly, we tell the server we made to listen on the given port and IP. */
-var server = http.createServer(requestHandler.handleRequest);
-server.listen(port);
-//server.listen(port, ip);
-//
-//
-//
-/* To start this server, run:
-     node basic-server.js
- *  on the command line.
+      var fileStream = fs.createReadStream(filename);
+      fileStream.pipe(res);
 
- * To connect to the server, load http://127.0.0.1:8080 in your web
- * browser.
-
- * server.listen() will continue running as long as there is the
- * possibility of serving more requests. To stop your server, hit
- * Ctrl-C on the command line. */
+    }); //end path.exists
+}).listen(port);
