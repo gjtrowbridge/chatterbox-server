@@ -26,18 +26,12 @@ http.createServer(function(req, res) {
     var filename = path.join(process.cwd(), uri);
 
     path.exists(filename, function(exists) {
-      console.log(exists);
       if(!exists) {
-        console.log('i:' + filename);
         requestHandler.handleRequest(req, res);
         return;
       } else if (uri === '/') {
-        filename += 'client/index.html'
-      } else if (uri.substr(0,7) === 'client/' {
-        filename = process.cwd();
-        filename = filename.substr(7);
+        filename += '/index.html';
       }
-      console.log('o:' + filename);
 
       var mimeType = mimeTypes[path.extname(filename).split(".")[1]];
       res.writeHead(200, mimeType);

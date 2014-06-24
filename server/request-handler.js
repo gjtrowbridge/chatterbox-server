@@ -11,7 +11,6 @@ var exports = module.exports = {};
 var storage = [];
 var storageByRoom = {};
 var lastId = 0;
-var chatHtml = fs.readFileSync('./client/index.html');
 
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -53,9 +52,7 @@ exports.handleRequest = function(request, response) {
 
   var statusCode = 200;
 
-  if (request.url === '/') {
-    responseText = chatHtml;
-  } else if(request.url.match(/\/classes\/messages\??.*/)){
+  if(request.url.match(/\/classes\/messages\??.*/)){
     if(request.method === 'POST'){
       statusCode = 201;
       request.on('data', handlePostedMessage);
