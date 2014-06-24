@@ -11,7 +11,7 @@ var port = process.env.PORT || 1337;
 /* For now, since you're running this server on your local machine,
  * we'll have it listen on the IP address 127.0.0.1, which is a
  * special address that always refers to localhost. */
-var ip = "23.100.46.198";
+var ip = "127.0.0.1";
 
 
 
