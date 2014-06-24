@@ -1,6 +1,7 @@
 // YOUR CODE HERE:
 var app = {
-  server: 'http://gregtrowbridgechatclienttest.azurewebsites.net/classes/messages',
+  // server: 'http://gregtrowbridgechatclienttest.azurewebsites.net/classes/messages',
+  server: 'http://localhost:1337/classes/messages',
   roomnames: {},
   usernames: {},
   friends: {},
@@ -46,16 +47,7 @@ app.clearMessages = function () {
 app._parseMessages = function(data) {
   app.clearMessages();
   var incomingMessages = data.results;
-  // var stringifiedMessage;
 
-  // for (var i = 0; i < incomingMessages.length; i++) {
-  //   var message = incomingMessages[i];
-
-  //   stringifiedMessage =JSON.stringify(message);
-  //   if (app.lastObjKey === stringifiedMessage) {
-  //     break;
-  //   }
-  // }
   for (var i = 0; i < incomingMessages.length; i++){
     var message = incomingMessages[i];
     app.messages.push(message);

@@ -6,9 +6,21 @@
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
 var exports = module.exports = {};
-var storage = [];
-var storageByRoom = {};
 var lastId = 0;
+var fs = require('fs');
+var storage = fs.readFileSync('./storage.json');
+storage = JSON.parse(storage);
+if(!Array.isArray(storage)){
+  storage = [];
+}
+
+var storageByRoom = fs.readFileSync('./storageByRoom.json');
+storageByRoom = JSON.parse(storageByRoom);
+if(!storageByRoom instanceof Object){
+  storageByRoom = {};
+}
+
+
 
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -41,6 +53,10 @@ exports.handleRequest = function(request, response) {
     }
     storageByRoom[room].push(message);
     storage.push(message);
+
+    //Save storage and storageByRoom to text file
+    fs.writeFile("./storage.json", JSON.stringify(storage));
+    fs.writeFile("./storageByRoom.json", JSON.stringify(storageByRoom));
   };
 
   var responseText = '';
