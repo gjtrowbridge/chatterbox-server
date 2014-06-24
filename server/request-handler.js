@@ -4,6 +4,7 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
+
 var exports = module.exports = {};
 var storage = [];
 var storageByRoom = {};
@@ -89,6 +90,7 @@ exports.handleRequest = function(request, response) {
    * up in the browser.*/
 
   response.end(responseText);
+
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).

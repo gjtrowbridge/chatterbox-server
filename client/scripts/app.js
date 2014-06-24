@@ -1,6 +1,6 @@
 // YOUR CODE HERE:
 var app = {
-  server: 'http://localhost:3000/classes/messages',
+  server: 'http://gregtrowbridgechatclienttest.azurewebsites.net/classes/messages',
   roomnames: {},
   usernames: {},
   friends: {},
