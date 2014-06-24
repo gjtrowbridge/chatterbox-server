@@ -5,12 +5,6 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 var exports = module.exports = {};
-var storage = [];
-var storageByRoom = {};
-var lastId = 0;
-
-<<<<<<< HEAD
-var exports = module.exports = {};
 var lastId = 0;
 var fs = require('fs');
 var storage = fs.readFileSync('./storage.json');
@@ -25,10 +19,6 @@ if(!storageByRoom instanceof Object){
   storageByRoom = {};
 }
 
-
-
-=======
->>>>>>> a3299f679519c596ed6f9a6b0fff9282873259fc
 exports.handleRequest = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
@@ -60,13 +50,11 @@ exports.handleRequest = function(request, response) {
     }
     storageByRoom[room].push(message);
     storage.push(message);
-<<<<<<< HEAD
 
     //Save storage and storageByRoom to text file
     fs.writeFile("./storage.json", JSON.stringify(storage));
     fs.writeFile("./storageByRoom.json", JSON.stringify(storageByRoom));
-=======
->>>>>>> a3299f679519c596ed6f9a6b0fff9282873259fc
+
   };
 
   var responseText = '';
@@ -116,10 +104,6 @@ exports.handleRequest = function(request, response) {
    * up in the browser.*/
 
   response.end(responseText);
-<<<<<<< HEAD
-
-=======
->>>>>>> a3299f679519c596ed6f9a6b0fff9282873259fc
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
