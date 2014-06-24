@@ -1,11 +1,4 @@
-// /* Import node's http module: */
-// var http = require('http');
-// var fs = require('fs');
 var requestHandler = require('./server/request-handler.js');
-
-
-// var server = http.createServer(requestHandler.handleRequest);
-// server.listen(port);
 
 var port = process.env.port || 1337;
 

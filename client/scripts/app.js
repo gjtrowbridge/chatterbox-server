@@ -1,7 +1,9 @@
 // YOUR CODE HERE:
 var app = {
+
   // server: 'http://gregtrowbridgechatclienttest.azurewebsites.net/classes/messages',
   server: 'http://localhost:1337/classes/messages',
+
   roomnames: {},
   usernames: {},
   friends: {},
