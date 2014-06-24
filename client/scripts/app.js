@@ -1,12 +1,12 @@
 // YOUR CODE HERE:
 var app = {
-  server: 'https://api.parse.com/1/classes/chatterbox',
+  server: 'http://localhost:3000/classes/messages',
   roomnames: {},
   usernames: {},
   friends: {},
   lastObjKey: '',
   messages: [],
-  currentRoomname: undefined
+  currentRoomname: 'room1'
 };
 
 app.init = function() {
@@ -44,26 +44,23 @@ app.clearMessages = function () {
 };
 
 app._parseMessages = function(data) {
+  app.clearMessages();
   var incomingMessages = data.results;
-  var stringifiedMessage;
-  var i = -1;
-  for (i = 0; i < incomingMessages.length; i++) {
+  // var stringifiedMessage;
+
+  // for (var i = 0; i < incomingMessages.length; i++) {
+  //   var message = incomingMessages[i];
+
+  //   stringifiedMessage =JSON.stringify(message);
+  //   if (app.lastObjKey === stringifiedMessage) {
+  //     break;
+  //   }
+  // }
+  for (var i = 0; i < incomingMessages.length; i++){
     var message = incomingMessages[i];
-    stringifiedMessage =JSON.stringify(message);
-    if (app.lastObjKey === stringifiedMessage) {
-      break;
-    }
-  }
-  for (var j = i - 1; j >= 0; j--){
-    var message = incomingMessages[j];
-    if (j === 0) {
-      stringifiedMessage =JSON.stringify(message);
-    }
     app.messages.push(message);
     app.addMessage(message);
   }
-  window.troubleObject = message;
-  app.lastObjKey = stringifiedMessage;
 };
 
 app.fetch = function() {

@@ -4,7 +4,10 @@
   "main": "server/main.js",
   "author": "Hack Reactor",
   "license": "Copyright 2013, Hack Reactor. All rights reserved.",
-  "dependencies": {},
+  "dependencies": {
+    "chai": "~1.9.1",
+    "mocha": "~1.20.1"
+  },
   "devDependencies": {
     "request": "^2.34.0",
     "chai": "^1.9.0"
